@@ -1,6 +1,5 @@
 import csv
 
-
 class Item:
     """
     Класс для представления товара в магазине.
@@ -20,6 +19,7 @@ class Item:
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
+        super().__init__()
 
     def __repr__(self):
         return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
@@ -28,7 +28,7 @@ class Item:
         return f"{self.name}"
 
     def __add__(self, other):
-        if not issubclass(other.__class__, self.__class__):
+        if not isinstance(other, Item):
             raise ValueError('Складывать можно только объекты Item и дочерние от них')
         return self.quantity + other.quantity
 
